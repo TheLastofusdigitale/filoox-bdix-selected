@@ -77,13 +77,7 @@ def generate_playlist(channels, categories, token):
         "# 🌐 @ Credit: @nasodisquiddi",
         "# 🎯 Selected categories only"
     ]
-    
-    # Add demo channel first
-    lines.extend([
-        '#EXTINF:-1 tvg-id="" tvg-name="Intro - Channel" tvg-logo="https://filexo.vercel.app/image/sultanarabi161.jpg" group-title="Intro",📺 Welcome',
-        'https://filexo.vercel.app/video/credit_developed_by_sultanarabi161.mp4'
-    ])
-    
+        
     # Add channels organized by category
     for category_name, category_channels in sorted(channels_by_category.items()):
         # Add category header
