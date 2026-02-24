@@ -1,10 +1,10 @@
-# 📦 filoox-bdix - Selected for Bangladesh, Pakistan, and India 
+# 📦 filoox-bdix - Selected for Italia 
 
 **Auto-updated M3U playlist with selected premium categories**
 
 ## 🔗 Playlist URL:
 ```
-https://raw.githubusercontent.com/v5on/filoox-bdix-selected/main/playlist.m3u
+https://raw.githubusercontent.com/TheLastofusdigitale/filoox-bdix-selected/main/playlist.m3u
 ```
 
 ## 🎯 Selected Categories:
