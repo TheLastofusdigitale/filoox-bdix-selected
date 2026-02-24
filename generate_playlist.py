@@ -44,7 +44,7 @@ def fetch_channels():
 # --- 4️⃣ Generate organized playlist with categories ---
 def generate_playlist(channels, categories, token):
     # BD Timezone
-    bd_tz = pytz.timezone('Asia/Dhaka')
+    bd_tz = pytz.timezone('Europe/Rome')
     bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
     
     # Create category mapping
@@ -74,7 +74,7 @@ def generate_playlist(channels, categories, token):
         f"# 🔄 Updated hourly from xtreme — Total fetched: {target_channels_count}",
         "# 🔁 Rewritten to v5on format",
         "# 🔁 Each stream link uses token validation",
-        "# 🌐 @ Credit: @sultanarabi161",
+        "# 🌐 @ Credit: @nasodisquiddi",
         "# 🎯 Selected categories only"
     ]
     
