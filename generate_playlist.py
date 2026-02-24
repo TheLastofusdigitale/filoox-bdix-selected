@@ -9,7 +9,7 @@ HEADERS = {"User-Agent": "Dalvik/2.1.0 (Linux; Android 10)"}
 
 # SELECTED CATEGORIES ONLY
 TARGET_CATEGORY_IDS = {
-    "1715", "1716", "1718", "1732", "1735", "1736", "1737", "1531","1356"
+    "23", "541", "1633", "1589", "542", "2124", "2297", "640","611", "1612", "536", "1730", "1359", "561", "1397", "2296", "793", "537", "1326", "1360", "540", "1170"
 }
 # --- 1️⃣ Generate new 32-char token ---
 def generate_token():
@@ -44,7 +44,7 @@ def fetch_channels():
 # --- 4️⃣ Generate organized playlist with SELECTED categories ---
 def generate_playlist(channels, categories, token):
     # BD Timezone
-    bd_tz = pytz.timezone('Asia/Dhaka')
+    bd_tz = pytz.timezone('Europe/Rome')
     bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
     
     # Create category mapping
@@ -91,7 +91,7 @@ def generate_playlist(channels, categories, token):
         f"# 🎯 Selected categories: {len(TARGET_CATEGORY_IDS)}",
         f"# 📊 Skipped invalid: {skipped_channels}",
         "# 🔁 Each stream link uses token validation",
-        "# 🌐 @ Credit: @sultanarabi161"
+        "# 🌐 @ Credit: @nasodisquiddi"
     ]
     
     # Add demo channel first
