@@ -50,32 +50,48 @@ def generate_playlist(channels, categories, token):
     # Create category mapping
     category_map = {str(cat["category_id"]): cat["category_name"] for cat in categories}
     
-    # Group channels by category (only target categories)
+       # Group channels by SELECTED categories only
     channels_by_category = {}
-    target_channels_count = 0
+    selected_count = 0
+    skipped_channels = 0
     
     for ch in channels:
-        cat_id = str(ch.get("category_id"))
-        # Only include channels from target categories
+        # Skip if channel is None or missing essential data
+        if not ch or not isinstance(ch, dict):
+            skipped_channels += 1
+            continue
+            
+        cat_id = str(ch.get("category_id", ""))
+        # ONLY include selected categories
         if cat_id in TARGET_CATEGORY_IDS and cat_id in category_map:
             category_name = category_map[cat_id]
+            
+            # Validate channel data
+            name = ch.get("name")
+            stream_id = ch.get("stream_id")
+            
+            if not name or not stream_id:
+                skipped_channels += 1
+                continue
+                
             if category_name not in channels_by_category:
                 channels_by_category[category_name] = []
+            
             channels_by_category[category_name].append(ch)
-            target_channels_count += 1
+            selected_count += 1
     
-    print(f"🎯 Filtered {target_channels_count} channels from {len(channels_by_category)} target categories")
+    print(f"📊 Processed {len(channels)} channels, selected {selected_count}, skipped {skipped_channels}")
     
     # Start building playlist
     lines = [
         "#EXTM3U",
-        "# 📦 filoox-bdix Auto Playlist (Token base)",
+        "# 📦 filoox-bdix Auto Playlist (Selected Categories)",
         f"# ⏰ BD Updated time: {bd_time}",
-        f"# 🔄 Updated hourly from xtreme — Total fetched: {target_channels_count}",
-        "# 🔁 Rewritten to v5on format",
+        f"# 🔄 Updated hourly — Total channels: {selected_count}",
+        f"# 🎯 Selected categories: {len(TARGET_CATEGORY_IDS)}",
+        f"# 📊 Skipped invalid: {skipped_channels}",
         "# 🔁 Each stream link uses token validation",
-        "# 🌐 @ Credit: @nasodisquiddi",
-        "# 🎯 Selected categories only"
+        "# 🌐 @ Credit: @nasodisquiddi"
     ]
         
     # Add channels organized by category
