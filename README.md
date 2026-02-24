@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/TheLastofusdigitale/filoox-bdix-selected/main/
 - ✅ **Token-secured streams**
 - ✅ **Free access**
 
-# 📦 Credit: @sultanarabi161
+# 📦 Credit: @nasodisquiddi
 
 **⭐ Star this repo for curated content!**
 ```
