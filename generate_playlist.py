@@ -11,6 +11,7 @@ HEADERS = {"User-Agent": "Dalvik/2.1.0 (Linux; Android 10)"}
 TARGET_CATEGORY_IDS = {
     "23", "541", "1633", "1589", "542", "2124", "2297", "640","611", "1612", "536", "1730", "1359", "561", "1397", "2296", "793", "537", "1326", "1360", "540", "1170"
 }
+
 # --- 1️⃣ Generate new 32-char token ---
 def generate_token():
     token = ''.join(random.choices(string.ascii_letters + string.digits, k=32))
@@ -51,9 +52,8 @@ def generate_playlist(channels, categories, token):
     category_map = {str(cat["category_id"]): cat["category_name"] for cat in categories}
     
        # Group channels by SELECTED categories only
-    channels_by_category = {}
-    selected_count = 0
-    skipped_channels = 0
+     channels_by_category = {}
+    target_channels_count = 0
     
     for ch in channels:
         # Skip if channel is None or missing essential data
