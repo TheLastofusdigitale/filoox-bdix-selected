@@ -7,7 +7,7 @@ BASE_API = os.getenv("XOTT_API_URL")
 PHP_PROXY = "http://v5on.site/token/stream.php"
 HEADERS = {"User-Agent": "Dalvik/2.1.0 (Linux; Android 10)"}
 
-# SELECTED CATEGORIES ONLY
+# --- TARGET CATEGORIES ---
 TARGET_CATEGORY_IDS = {
     "23", "541", "1633", "1589", "542", "2124", "2297", "640","611", "1612", "536", "1730", "1359", "561", "1397", "2296", "793", "537", "1326", "1360", "540", "1170"
 }
@@ -46,19 +46,18 @@ def fetch_channels():
 def generate_playlist(channels, categories, token):
     # BD Timezone
     bd_tz = pytz.timezone('Europe/Rome')
-    bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
+   bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
     
     # Create category mapping
     category_map = {str(cat["category_id"]): cat["category_name"] for cat in categories}
     
-       # Group channels by SELECTED categories only
-      channels_by_category = {}
-    selected_count = 0
-    skipped_channels = 0
+    # Group channels by category (only target categories)
+    channels_by_category = {}
+    target_channels_count = 0
     
     for ch in channels:
         cat_id = str(ch.get("category_id"))
-        # ONLY include selected categories
+        # Only include channels from target categories
         if cat_id in TARGET_CATEGORY_IDS and cat_id in category_map:
             category_name = category_map[cat_id]
             if category_name not in channels_by_category:
@@ -80,7 +79,7 @@ def generate_playlist(channels, categories, token):
         "# 🌐 @ Credit: @nasodisquiddi"
     ]
         
-    # Add channels organized by category
+     # Add channels organized by category
     for category_name, category_channels in sorted(channels_by_category.items()):
         # Add category header
         lines.append(f"# 🔰 {category_name}")
