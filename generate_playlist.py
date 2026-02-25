@@ -52,8 +52,9 @@ def generate_playlist(channels, categories, token):
     category_map = {str(cat["category_id"]): cat["category_name"] for cat in categories}
     
        # Group channels by SELECTED categories only
-     channels_by_category = {}
-    target_channels_count = 0
+      channels_by_category = {}
+    selected_count = 0
+    skipped_channels = 0
     
     for ch in channels:
         cat_id = str(ch.get("category_id"))
