@@ -79,19 +79,17 @@ def generate_playlist(channels, categories, token):
         "# 🌐 @ Credit: @nasodisquiddi"
     ]
         
-    # Add channels organized by SELECTED categories
+    # Add channels organized by category
     for category_name, category_channels in sorted(channels_by_category.items()):
         # Add category header
-        lines.append(f"# 🟢 {category_name} ({len(category_channels)} channels)")
+        lines.append(f"# 🔰 {category_name}")
         
         for ch in category_channels:
-            # Safe data extraction with defaults
-            name = str(ch.get("name", "Unknown")).strip()
-            logo = str(ch.get("stream_icon", "")).strip()
+            name = ch.get("name", "Unknown").strip()
+            logo = ch.get("stream_icon", "").strip()
             stream_id = ch.get("stream_id")
             
-            # Final validation
-            if not name or name == "Unknown" or not stream_id:
+            if not name or not stream_id:
                 continue
                 
             # Use token in URL
@@ -106,36 +104,25 @@ def generate_playlist(channels, categories, token):
     with open("playlist.m3u", "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
     
-    return selected_count
+    return target_channels_count
 
 # --- MAIN ---
 if __name__ == "__main__":
-    print("🔄 Starting playlist generation (Selected Categories)...")
+    print("🔄 Starting playlist generation...")
+    print(f"🎯 Target categories: {TARGET_CATEGORY_IDS}")
     
-    try:
-        # Generate token
-        new_token = generate_token()
-        print("✅ Token generated")
-        
-        # Fetch data
-        categories = fetch_categories()
-        channels = fetch_channels()
-        
-        if not categories:
-            print("❌ No categories fetched")
-            exit(1)
-        if not channels:
-            print("❌ No channels fetched")
-            exit(1)
-            
-        print(f"📊 Fetched {len(categories)} categories and {len(channels)} channels")
-        
-        # Generate playlist
-        total_channels = generate_playlist(channels, categories, new_token)
-        
-        print(f"✅ Playlist generated with {total_channels} channels from selected categories")
-        print("🎯 Token & playlist updated successfully")
-        
-    except Exception as e:
-        print(f"❌ Critical error: {e}")
-        exit(1)
+    # Generate token
+    new_token = generate_token()
+    print("✅ Token generated")
+    
+    # Fetch data
+    categories = fetch_categories()
+    channels = fetch_channels()
+    
+    print(f"📊 Fetched {len(categories)} categories and {len(channels)} total channels")
+    
+    # Generate playlist
+    total_channels = generate_playlist(channels, categories, new_token)
+    
+    print(f"✅ Playlist generated with {total_channels} channels from target categories")
+    print("🎯 Token & playlist updated successfully")
