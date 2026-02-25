@@ -4,7 +4,7 @@ import pytz
 
 # --- CONFIG ---
 BASE_API = os.getenv("XOTT_API_URL")
-PHP_PROXY = "http://v5on.site/token/stream.php"
+PHP_PROXY = "http://bazario.space/token/stream.php"
 HEADERS = {"User-Agent": "Dalvik/2.1.0 (Linux; Android 10)"}
 
 # --- TARGET CATEGORIES ---
@@ -45,8 +45,8 @@ def fetch_channels():
 # --- 4️⃣ Generate organized playlist with categories ---
 def generate_playlist(channels, categories, token):
     # BD Timezone
-    bd_tz = pytz.timezone('Europe/Rome')
-   bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
+    bd_tz = pytz.timezone('Asia/Dhaka')
+    bd_time = datetime.now(bd_tz).strftime('%Y-%m-%d %H:%M:%S')
     
     # Create category mapping
     category_map = {str(cat["category_id"]): cat["category_name"] for cat in categories}
@@ -70,16 +70,16 @@ def generate_playlist(channels, categories, token):
     # Start building playlist
     lines = [
         "#EXTM3U",
-        "# 📦 filoox-bdix Auto Playlist (Selected Categories)",
+        "# 📦 filoox-bdix Auto Playlist (Token base)",
         f"# ⏰ BD Updated time: {bd_time}",
-        f"# 🔄 Updated hourly — Total channels: {selected_count}",
-        f"# 🎯 Selected categories: {len(TARGET_CATEGORY_IDS)}",
-        f"# 📊 Skipped invalid: {skipped_channels}",
+        f"# 🔄 Updated hourly from xtreme — Total fetched: {target_channels_count}",
+        "# 🔁 Rewritten to v5on format",
         "# 🔁 Each stream link uses token validation",
-        "# 🌐 @ Credit: @nasodisquiddi"
+        "# 🌐 @ Credit: @nasodisquiddi",
+        "# 🎯 Selected categories only"
     ]
-        
-     # Add channels organized by category
+    
+    # Add channels organized by category
     for category_name, category_channels in sorted(channels_by_category.items()):
         # Add category header
         lines.append(f"# 🔰 {category_name}")
